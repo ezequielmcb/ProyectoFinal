@@ -1,0 +1,54 @@
+#card{
+    background-color:#1E213A;
+    height: 180px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+#card > h1{
+    font-size: 16px;
+    font-weight: 500;
+    color: #E7E7EB;
+}
+
+#card > img{
+    height: 62px;
+    width: 56px;
+}
+
+#card > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#card > div > h1{
+    font-size: 16px;
+    font-weight: 500;
+    color: #E7E7EB;
+}
+
+#card > div > p{
+    font-size: 16px;
+    font-weight: 500;
+    color: #A09FB1;
+}
+
+@media screen and (min-width: 1280px) {
+     #card {
+      background-color: #1E213A;
+      height: 180px;
+      width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }

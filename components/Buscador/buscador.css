@@ -1,0 +1,19 @@
+.divCity {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: 305px;
+  padding: 0 15px;
+  cursor: pointer;
+  border: 1px solid #616475;
+}
+
+.city {
+  color: #E7E7EB;
+}
+
+.divCity>span {
+  color: #616475;
+}

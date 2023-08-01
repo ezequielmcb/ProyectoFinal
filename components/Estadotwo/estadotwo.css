@@ -1,0 +1,59 @@
+#estados {
+    width: 328px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #1E213A;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+#estados>h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #E7E7EB;
+}
+
+
+#divmphtwo {
+    display: flex;
+    align-items: end;
+}
+
+#divmphtwo>h1 {
+    font-size: 64px;
+    font-weight: 700;
+    color: #E7E7EB;
+}
+
+#mphtwo {
+    font-size: 36px;
+    font-weight: 500;
+    color: #E7E7EB;
+}
+
+#estados> div  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#divwswtwo > p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #E7E7EB;
+}
+
+@media screen and (min-width: 1280px) {
+    #estados {
+        width: 328px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #1E213A;
+    }
+}
