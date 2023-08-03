@@ -44,9 +44,11 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin: 0;
 }
 
 #divwsw > i {
+    margin: 0;
     padding: 10px;
     border-radius: 100%;
     border: 0;
@@ -55,6 +57,7 @@
 } 
 
 #divwsw>p {
+    margin: 0;
     font-size: 16px;
     font-weight: 500;
     color: #E7E7EB;
@@ -69,9 +72,5 @@
         justify-content: center;
         flex-direction: column;
         background-color: #1E213A;
-    }
-
-    #divwsw{
-        
     }
 }

@@ -1,3 +1,4 @@
+
 #estado {
     width: 328px;
     height: 204px;
@@ -21,7 +22,7 @@
     align-items: end;
 }
 
-#divmph>h1 {
+#divBarra > h1 {
     font-size: 64px;
     font-weight: 700;
     color: #E7E7EB;
@@ -39,7 +40,7 @@
     justify-content: center;
 }
 
-#divwsw>p {
+#divBarra > p {
     font-size: 16px;
     font-weight: 500;
     color: #E7E7EB;

@@ -1,0 +1,41 @@
+.imgs{
+    height: 380px;
+    position: relative;
+    margin-left: -10%;
+}
+
+.background {
+    background-image: url("../../public/Cloud-background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 160%;
+    opacity: 0.1;
+    height: 100%;
+    width: 375px;
+
+}
+
+.img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 1280px) {  
+    .background {
+        background-image: url("../../public/Cloud-background.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 160%;
+        opacity: 0.1;
+        height: 100%;
+        width: 107%;
+    
+    }
+
+}

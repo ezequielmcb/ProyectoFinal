@@ -6,12 +6,15 @@ import Estado from "../../components/Estado/Estado";
 import Estadotwo from "../../components/Estadotwo/Estadotwo";
 import Barra from "../../components/Barra/Barra";
 import Buscador from "../../components/Buscador/Buscador";
+import BotonesGrados from "../../components/BotonesGrados/BotonesGrados";
+import Fondo from "../../components/Fondo/Fondo";
 
 
 export default function Home() {
   const [nav, setNav] = useState(false);
-  const [grados, setGrados] = useState("units=metric")
-  const [city, setCity] = useState("azua")
+  const [grados, setGrados] = useState("&units=metric")
+  const [city, setCity] = useState("puerto rico")
+  const [searchText, setSearchText] = useState("");
   const [today, setToday] = useState({
     temp: 0,
     city: "",
@@ -31,7 +34,7 @@ export default function Home() {
   };
 
   const getData = async () => {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ffd8bf936c938aa697354f61cf32ee74&${grados}`);
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ffd8bf936c938aa697354f61cf32ee74${grados}`);
     // console.log(res)
     if (res.ok === true) {
       const data = await res.json();
@@ -74,13 +77,13 @@ export default function Home() {
   });
 
   const getDay = async () => {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=ffd8bf936c938aa697354f61cf32ee74&${grados}`);
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=ffd8bf936c938aa697354f61cf32ee74${grados}`);
     // console.log(res)
 
     if (res.ok === true) {
       const data = await res.json();
       console.log(data);
-      console.log(data.list[0].weather[0].main);
+      // console.log(data.list[0].weather[0].main);
 
       const miniIcon1 = weatherIcons[data.list[1].weather[0].main];
       const miniIcon10 = weatherIcons[data.list[10].weather[0].main];
@@ -120,21 +123,56 @@ export default function Home() {
     setNav(!nav)
   }
 
+  function handleSearchTextChange(event) {
+    setSearchText(event.target.value);
+  }
+
+  function handleSearch() {
+    handleCityChange(searchText);
+    setNav(false);
+  }
+
   function handleCityChange(newCity) {
-    setCity(newCity);
+    const targetCity = newCity || searchText;
+    setCity(targetCity);
   }
 
-  function handleGradosChange(grado) {
-    setGrados(grado);
+  function handleGradosChange(newGrados) {
+    setGrados(newGrados);
   }
 
+  let GRADO = grados == "&units=imperial" ? "ºF" : "ºC";
+
+  function getGeoLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ffd8bf936c938aa697354f61cf32ee74${grados}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const cityName = data.name;
+              setCity(cityName);
+            })
+            .catch((error) => {
+              console.error('Error fetching weather data:', error);
+            });
+        },
+
+      );
+    }
+  }
 
   return (
     <div className="contenedorAll">
       <section className="sectionInicial">
         <div className="busqueda">
-          <input className="busca" onClick={handleNav} type="text" placeholder="Seach for places" />
-          <button className="local" onClick={() => handleCityChange("azua")}>
+          <input
+            className="busca"
+            onClick={handleNav} type="text"
+            placeholder="Seach for places"
+          />
+          <button className="local" onClick={getGeoLocation} >
             <i className="fa-solid fa-location-crosshairs"></i>
           </button>
           {nav === true ? (
@@ -145,9 +183,10 @@ export default function Home() {
               <div className="divbuscar">
                 <div>
                   <i className="fa-solid fa-magnifying-glass"></i>
-                  <input type="text" placeholder="search location" />
+                  <input type="text" placeholder="search location" value={searchText} onChange={handleSearchTextChange}
+                  />
                 </div>
-                <button className="btnsearch">Search</button>
+                <button className="btnsearch" onClick={handleSearch}>Search</button>
               </div>
               <Buscador city="London" onCityChange={handleCityChange} onClick={handleNav} />
               <Buscador city="Barcelona" onCityChange={handleCityChange} onClick={handleNav} />
@@ -157,24 +196,15 @@ export default function Home() {
             ""
           )}
         </div>
-        {nav === false ? (
-          <div className="nuves"></div>
-        ) : (
+        {nav === false ?(
+          <Fondo fon={today.weatherIcon}/>
+        ):(
           ""
         )}
-        <div className="img">
-          <div>
-            {nav === false ? (
-              <img src={today.weatherIcon} alt="Shower" />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
         <div className="gradosC">
           <div className="temperatura">
             <h1>{today.temp.toFixed(0)}</h1>
-            <p>ºc</p>
+            <p>{GRADO}</p>
           </div>
         </div>
         <div className="fecha">
@@ -192,16 +222,13 @@ export default function Home() {
       </section>
       <div className="contenedorCardsEstados">
         <section className="sectionSegunda">
-          <div id="btns">
-            <button id="btnC" onClick={() => handleGradosChange("units=metric")}>ºC</button>
-            <button id="btnF" onClick={() => handleGradosChange("units=imperial")} >ºF</button>
-          </div>
+          <BotonesGrados getNewGrados={handleGradosChange} />
           <section id="cards">
-            <Card dia="Mañana" imagen={day.miniIcon1} firstC={day.tempMax1.toFixed(0)} secondC={day.tempMin1.toFixed(0)} CF="ºC" />
-            <Card dia="Martes" imagen={day.miniIcon10} firstC={day.tempMax10.toFixed(0)} secondC={day.tempMin10.toFixed(0)} CF="ºC" />
-            <Card dia="Miercoles" imagen={day.miniIcon17} firstC={day.tempMax17.toFixed(0)} secondC={day.tempMin17.toFixed(0)} CF="ºC" />
-            <Card dia="Jueves" imagen={day.miniIcon26} firstC={day.tempMax26.toFixed(0)} secondC={day.tempMin26.toFixed(0)} CF="ºC" />
-            <Card dia="Viernes" imagen={day.miniIcon36} firstC={day.tempMax36.toFixed(0)} secondC={day.tempMin36.toFixed(0)} CF="ºC" />
+            <Card dia="Mañana" imagen={day.miniIcon1} firstC={day.tempMax1.toFixed(0)} secondC={day.tempMin1.toFixed(0)} CF={GRADO} />
+            <Card dia="Martes" imagen={day.miniIcon10} firstC={day.tempMax10.toFixed(0)} secondC={day.tempMin10.toFixed(0)} CF={GRADO} />
+            <Card dia="Miercoles" imagen={day.miniIcon17} firstC={day.tempMax17.toFixed(0)} secondC={day.tempMin17.toFixed(0)} CF={GRADO} />
+            <Card dia="Jueves" imagen={day.miniIcon26} firstC={day.tempMax26.toFixed(0)} secondC={day.tempMin26.toFixed(0)} CF={GRADO} />
+            <Card dia="Viernes" imagen={day.miniIcon36} firstC={day.tempMax36.toFixed(0)} secondC={day.tempMin36.toFixed(0)} CF={GRADO} />
           </section>
           <div id="title">
             <h1 id="today">Today’s Hightlights </h1>
@@ -211,10 +238,10 @@ export default function Home() {
             <Barra status="Humidity" number={today.humidity} mph="%" />
             <Estadotwo statustwo="Visibility" numbertwo={today.visibility} mphtwo="miles" />
             <Estadotwo statustwo="Air Pressure" numbertwo={today.pressure} mphtwo="mb" />
-            <div>
-              <p></p>
-            </div>
           </section>
+            <div id="lastP">
+              <p>created by <b><u>username</u></b> - devChallenges.io</p>
+            </div>
         </section>
       </div>
     </div>

@@ -11,7 +11,7 @@ function Barra(props) {
         <p id="mph">{mph}</p>
       </div>
       <div className="barra">
-        <div id="divwsw" style={{ height: "8px", background:"#E7E7EB" , width: "185px" }}>
+        <div id="divBarra" style={{ height: "8px", background:"#E7E7EB" , width: "185px" }}>
           <div 
           style={{ height: "100%", background: "#FFEC65", width: `${number}%` }}>
           </div>

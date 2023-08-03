@@ -1,0 +1,35 @@
+#btns {
+    display: none;
+}
+
+@media screen and (min-width: 1280px) {
+
+#btns {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}
+
+#btnC {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px;
+    border: 0;
+    border-radius: 100%;
+    background-color: #E7E7EB;
+    color: #585676;
+    cursor: pointer;
+}
+
+#btnF {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px;
+    border: 0;
+    border-radius: 100%;
+    background-color: #585676;
+    color: #E7E7EB;
+    cursor: pointer;
+}
+}
