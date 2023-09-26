@@ -8,5 +8,6 @@ yarn dev
 pnpm dev
 ```
 
+Es responsive
 Aplicacion del clima te muestra el clima de tu ubu¡icacion actual al consumir una api del clima y ver el pronostico del clima de los proximos dias tambien.
 Puedes buscar cuarquier ciudad del mundo para ver el clima de dicha ciudad.
